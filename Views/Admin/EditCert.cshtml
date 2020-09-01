@@ -1,0 +1,61 @@
+﻿@model CertListViewModel
+@{
+    ViewBag.Title = "Edit Certificate";
+    Layout = "_AdminLayout";
+}
+
+<section style="min-height: 92vh; padding-top: 3rem;">
+    <div class="container">
+        <div class="row" style="justify-content: space-between;">
+            @*<div class="card-columns">*@
+            @foreach (var item in Model.Certificates)
+                {
+            @*<div class="col-sm-12 col-md-4 col-lg-3 cert_pathImg">*@
+            <div class="card mb-3">
+                <img src="@Url.Content(item.CertPath)" class="cert_img_top" alt="@item.CertName">
+                <div class="card-body">
+                    <h5 class="card-title">@item.StaffId</h5>
+                    <form action="AddCertName" method="post">
+                        <input type="hidden" asp-for="@item.CertID" />
+                        <input type="hidden" name="certId" value="@item.CertID" />
+                        <input type="hidden" name="staffId" value="@item.StaffId" />
+                        <div class="form-group">
+                            <label asp-for="@item.CertName"></label>
+                            <input type="text" name="certName" placeholder="@item.CertName" class="form-control" />
+                            <button type="submit" class="btn btn-primary">Rename</button>
+                        </div>
+                    </form>
+                    @*<form asp-action="DeleteCert" method="post">
+                            <a asp-action="EditCert" class="btn btn-sm btn-warning" asp-route-blogId="@item.CertID">Edit</a>
+                            <input type="hidden" name="CertID" value="@item.CertID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>*@
+                    <form asp-action="DeleteCert" method="post">
+                        <input type="hidden" name="certId" value="@item.CertID" />
+                        <input type="hidden" name="certPath" value="@item.CertPath" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                    @*<a class="btn btn-danger" asp-action="DeleteCert"
+                        asp-controller="Admin" asp-route-staffId="@item.StaffId" asp-route-certId="@item.CertID" style="float: right">Delete</a>*@
+                </div>
+            </div>
+            @*</div>*@
+                }
+            <div class="card">
+                @*<div class="col-sm-12 col-md-4 col-lg-3 cert_pathImg">*@
+                <img src="~/img/icons/images.svg" style=" width: 20em; height: 15em; object-fit: cover;" alt="Add New Photo">
+                <div class="card-body">
+                    <form asp-action="AddCert" method="post" enctype="multipart/form-data">
+                        <input type="hidden" name="staffId" value="@ViewData["StaffID"]" />
+                        <div class="form-group">
+                            <input type="file" name="upFileCert" multiple class="form-control" />
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-sm">Add Photo</button>
+                    </form>
+                </div>
+                @*</div>*@
+            </div>
+            @*</div>*@
+        </div>
+    </div>
+</section>

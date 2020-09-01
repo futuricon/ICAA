@@ -1,0 +1,61 @@
+﻿@model IEnumerable<Staff>
+@{
+    ViewBag.Title = "All Staffs";
+    Layout = "_AdminLayout";
+}
+<section class="table-responsive-md" style="min-height: 92vh; padding-top: 3rem;">
+    <table class="table table-striped table-bordered table-sm">
+        <tr>
+            <th class="text-left">ID</th>
+            <th class="text-left">Image</th>
+            <th class="text-left">Certificates</th>
+            @*<th class="text-left">Name</th>
+                <th class="text-left">Surname</th>
+                <th class="text-left">Description</th>
+                <th class="text-left">Info</th>*@
+            <th class="text-left">NameRu</th>
+            <th class="text-left">SurnameRu</th>
+            <th class="text-left">DescriptionRu</th>
+            <th class="text-left">InfoRu</th>
+            @*<th class="text-left">NameUz</th>
+                <th class="text-left">SurnameUz</th>
+                <th class="text-left">DescriptionUz</th>
+                <th class="text-left">InfoUz</th>*@
+            <th class="text-center">Actions</th>
+        </tr>
+        @foreach (var item in Model.Reverse())
+        {
+            <tr>
+                <td class="text-left">@item.StaffID</td>
+                <td class="text-left">@item.ImageUrl</td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-warning" asp-controller="Admin" asp-action="EditCert" asp-route-staffId="@item.StaffID">
+                        Edit
+                    </a>
+                </td>
+                @*<td class="text-left">@item.Name</td>
+                    <td class="text-left">@item.Surname</td>
+                    <td class="text-left">@item.Description</td>
+                    <td class="text-left">@item.FullInfo</td>*@
+                <td class="text-left">@item.NameRu</td>
+                <td class="text-left">@item.SurnameRu</td>
+                <td class="text-left">@item.DescriptionRu</td>
+                <td class="text-left">@item.FullInfoRu</td>
+                @*<td class="text-left">@item.NameUz</td>
+                    <td class="text-left">@item.SurnameUz</td>
+                    <td class="text-left">@item.DescriptionUz</td>
+                    <td class="text-left">@item.FullInfoUz</td>*@
+                <td class="text-center">
+                    <form asp-action="DeleteStaff" method="post">
+                        <a asp-action="EditStaff" class="btn btn-sm btn-warning" asp-route-staffId="@item.StaffID">Edit</a>
+                        <input type="hidden" name="StaffID" value="@item.StaffID" />
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </table>
+    <div class="text-center mb-4">
+        <a asp-action="CreateStaff" class="btn btn-primary">Add Staff</a>
+    </div>
+</section>

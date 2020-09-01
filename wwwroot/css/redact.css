@@ -1,0 +1,62 @@
+﻿.input-validation-error {
+    border-color: red;
+    background-color: #fee;
+}
+
+._item{
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: #fed136;
+}
+
+    ._item:hover {
+        color: black;
+        background-color: #fed136;
+        -webkit-transition-duration: 0.4s;
+        transition-duration: 0.4s;
+        text-decoration: none;
+    }
+
+a {
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.navbar h4 {
+    color: goldenrod;
+}
+
+.form-control {
+    width: 100%;
+}
+
+.note-editing-area {
+    min-height: 40vh;
+}
+
+.cert_pathImg {
+    border: 2px solid #000000;
+    margin: 15px 0;
+}
+
+.cert_img_top {
+    width: 15em;
+    height: 15em;
+    object-fit: cover;
+}
+
+
+.breadcrumb {
+    margin-bottom: 0;
+}
+
+.breadcrumb {
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+@media screen and (max-width: 760px) {
+    .breadcrumb {
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+}

@@ -1,0 +1,114 @@
+﻿@inject IViewLocalizer Localizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    ViewData["Title"] = "Blog";
+    Layout = "~/Views/Shared/_BlogLayout.cshtml";
+}
+@model BlogsListViewModel
+<section id="concret_blog_page" class="concret_blog_section">
+    <div class="container">
+        <div class="row">
+            <!-- Post Content Column -->
+            <div class="col-lg-8">
+                @if (@requestCulture.RequestCulture.UICulture.Name == "ru")
+                {
+                    @foreach (var p in Model.Blogs)
+                    {
+                        <!-- Title -->
+                        <h1 class="mt-4">@p.TitleRu</h1>
+                        <!-- Author -->
+                        @*<p class="lead">
+                                Blog Id
+                                <a href="#">@p.BlogID</a>
+                            </p>*@
+                        <hr>
+                        <!-- Date/Time -->
+                        @*<p>Posted on January 1, 2019 at 12:00 PM</p>*@
+                        <p>@p.CreatedDate.ToString("MM/dd/yyyy")</p>
+                        <hr>
+                        <!-- Preview Image -->
+                        <img src="@Url.Content(p.ImageUrl)" class="img-fluid rounded" alt="">
+                        <hr>
+                        <!-- Post Content -->
+                        @Html.Raw(@p.DescriptionRu)
+
+                    }
+                }
+                else if (@requestCulture.RequestCulture.UICulture.Name == "uz")
+                {
+                    @foreach (var p in Model.Blogs)
+                    {
+                        <!-- Title -->
+                        <h1 class="mt-4">@p.TitleUz</h1>
+                        <!-- Author -->
+                        @*<p class="lead">
+                                Blog Id
+                                <a href="#">@p.BlogID</a>
+                            </p>*@
+                        <hr>
+                        <!-- Date/Time -->
+                        @*<p>Posted on January 1, 2019 at 12:00 PM</p>*@
+                        <p>@p.CreatedDate.ToString("MM/dd/yyyy")</p>
+                        <hr>
+                        <!-- Preview Image -->
+                        <img src="@Url.Content(p.ImageUrl)" class="img-fluid rounded" alt="">
+                        <hr>
+                        <!-- Post Content -->
+                        @Html.Raw(@p.DescriptionUz)
+                    }
+                }
+                else
+                {
+                    @foreach (var p in Model.Blogs)
+                    {
+                        <!-- Title -->
+                        <h1 class="mt-4">@p.Title</h1>
+                        <!-- Author -->
+                        @*<p class="lead">
+                                Blog Id
+                                <a href="#">@p.BlogID</a>
+                            </p>*@
+                        <hr>
+                        <!-- Date/Time -->
+                        @*<p>Posted on January 1, 2019 at 12:00 PM</p>*@
+                        <p>@p.CreatedDate.ToString("MM/dd/yyyy")</p>
+                        <hr>
+                        <!-- Preview Image -->
+                        <img src="@Url.Content(p.ImageUrl)" class="img-fluid rounded" alt="">
+                        <hr>
+                        <!-- Post Content -->
+                        @Html.Raw(@p.Description)
+                    }
+                }
+            </div>
+            <!-- Sidebar Widgets Column -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card my-4">
+                    <h5 class="card-header">Facebook</h5>
+                    <div class="card-body">
+                        <div id="fb-root"></div>
+                        <script async defer crossorigin="anonymous" src="https://connect.facebook.net/ru_RU/sdk.js#xfbml=1&version=v5.0"></script>
+                        <div class="fb-page" data-href="https://www.facebook.com/International-Combat-Aikido-Association-434807793270681/"
+                             data-tabs="timeline" data-width="" data-height=""
+                             data-small-header="false" data-adapt-container-width="true"
+                             data-hide-cover="false" data-show-facepile="true">
+                            <blockquote cite="https://www.facebook.com/International-Combat-Aikido-Association-434807793270681/" class="fb-xfbml-parse-ignore">
+                                <a href="https://www.facebook.com/International-Combat-Aikido-Association-434807793270681/">International Combat Aikido Association</a>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side Widget -->
+            @*<div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card my-4">
+                    <h5 class="card-header">Instagram</h5>
+                    <div class="card-body">
+                        You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
+                    </div>
+                </div>
+            </div>*@
+        </div>
+        <!-- /.row -->
+    </div>
+</section>

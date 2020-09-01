@@ -1,0 +1,96 @@
+﻿@model StaffListViewModel
+@inject IViewLocalizer Locolizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    ViewData["Title"] = "Staff";
+    Layout = "~/Views/Shared/_TrioLayout.cshtml";
+}
+
+<section id="page_staff" class="about_page_section">
+    <div class="container first_sec">
+        @if (@requestCulture.RequestCulture.UICulture.Name == "ru")
+        {
+            @foreach (var p in Model.Staffs)
+            {
+                <dev class="row first_row center-block">
+                    <div class="about_log">
+                        <img class="img-fluid" src="@Url.Content(p.ImageUrl)" alt=" @p.Name @p.Surname" />
+                    </div>
+                    <div class="about_title">
+                        <h2>@p.NameRu<br>@p.SurnameRu</h2>
+                    </div>
+                </dev>
+                <div>
+                    <div class="about_txt">
+                        <p>
+                            @Html.Raw(@p.FullInfoRu)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else if (@requestCulture.RequestCulture.UICulture.Name == "uz")
+        {
+            @foreach (var p in Model.Staffs)
+            {
+                <dev class="row first_row">
+                    <div class="about_log">
+                        <img class="img-fluid" src="@Url.Content(p.ImageUrl)" alt="@p.Name @p.Surname" />
+                    </div>
+                    <div class="about_title">
+                        <h2>@p.NameUz<br>@p.SurnameUz</h2>
+                    </div>
+                </dev>
+                <div>
+                    <div class="about_txt">
+                        <p>
+                            @Html.Raw(@p.FullInfoUz)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            @foreach (var p in Model.Staffs)
+            {
+                <dev class="row first_row">
+                    <div class="about_log">
+                        <img class="img-fluid" src="@Url.Content(p.ImageUrl)" alt="@p.Name @p.Surname" />
+                    </div>
+                    <div class="about_title">
+                        <h2>@p.Name<br>@p.Surname</h2>
+                    </div>
+                </dev>
+                <div>
+                    <div class="about_txt">
+                        <p>
+                            @Html.Raw(p.FullInfo)
+                        </p>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</section>
+
+<section class="Cert_gallery">
+    <div class="container">
+        <div class="Cert_title">
+            <h3>Certificates</h3>
+        </div>
+        <div id="gallery">
+            @foreach (var item in Model.Staffs)
+            {
+                foreach (var itemC in item.Certificates)
+                {
+                    <figure class="photo">
+                        <a href="@Url.Content(itemC.CertPath)" data-lightbox="roadtrip" data-title="certificate">
+                            <img src="@Url.Content(itemC.CertPath)" alt="@itemC.CertName" />
+                        </a>
+                    </figure>
+                }
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,115 @@
+﻿@model Staff
+@{
+    ViewBag.Title = "Edit Staff";
+    Layout = "_AdminLayout";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+
+<section style="min-height: 92vh; padding-top: 3rem;">
+    <div class="container">
+        @*<form asp-action="AddFile" asp-controller="Admin" method="post" enctype="multipart/form-data">
+                <input type="file" name="uploadedFile" /><br>
+                <input type="submit" value="Upload" />
+            </form>*@
+        <form asp-action="EditStaff" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="StaffID" />
+
+
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <img src="@Url.Content(@Model.ImageUrl)" style="width: 10rem;">
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label asp-for="ImageUrl"></label>
+                <input type="file" name="uploadedFile" class="form-control" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                <label asp-for="Certificates"></label>
+                <input type="file" name="upFileCert" multiple class="form-control" />
+            </div>
+
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="Name"></label>
+                    <div><span asp-validation-for="Name" class="text-danger"></span></div>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="NameRu"></label>
+                    <div><span asp-validation-for="NameRu" class="text-danger"></span></div>
+                    <input asp-for="NameRu" class="form-control" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="NameUz"></label>
+                    <div><span asp-validation-for="NameUz" class="text-danger"></span></div>
+                    <input asp-for="NameUz" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="Surname"></label>
+                    <div><span asp-validation-for="Surname" class="text-danger"></span></div>
+                    <input asp-for="Surname" class="form-control" />
+                </div><div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="SurnameRu"></label>
+                    <div><span asp-validation-for="SurnameRu" class="text-danger"></span></div>
+                    <input asp-for="SurnameRu" class="form-control" />
+                </div><div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="SurnameUz"></label>
+                    <div><span asp-validation-for="SurnameUz" class="text-danger"></span></div>
+                    <input asp-for="SurnameUz" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="Description"></label>
+                    <div><span asp-validation-for="Description" class="text-danger"></span></div>
+                    <textarea asp-for="Description" class="form-control"></textarea>
+                </div><div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="DescriptionRu"></label>
+                    <div><span asp-validation-for="DescriptionRu" class="text-danger"></span></div>
+                    <textarea asp-for="DescriptionRu" class="form-control"></textarea>
+                </div><div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="DescriptionUz"></label>
+                    <div><span asp-validation-for="DescriptionUz" class="text-danger"></span></div>
+                    <textarea asp-for="DescriptionUz" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label asp-for="FullInfo"></label>
+                    <div><span asp-validation-for="FullInfo" class="text-danger"></span></div>
+                    <textarea id="summernote" asp-for="FullInfo" class="form-control"></textarea>
+                </div><div class="form-group col-12">
+                    <label asp-for="FullInfoRu"></label>
+                    <div><span asp-validation-for="FullInfoRu" class="text-danger"></span></div>
+                    <textarea id="summernoteRu" asp-for="FullInfoRu" class="form-control"></textarea>
+                </div><div class="form-group col-12">
+                    <label asp-for="FullInfoUz"></label>
+                    <div><span asp-validation-for="FullInfoUz" class="text-danger"></span></div>
+                    <textarea id="summernoteUz" asp-for="FullInfoUz" class="form-control"></textarea>
+                </div>
+            </div>
+            <div class="text-center mb-4">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    @*<script src="~/lib/summernote/summernote-bs4.min.js"></script>
+        <script src="~/lib/summernote/lang/summernote-ru-RU.min.js"></script>*@
+    https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-ru-RU.min.js
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote();
+            $('#summernoteRu').summernote({
+                lang: 'ru-RU' // default: 'en-US'
+            });
+            $('#summernoteUz').summernote();
+        });
+    </script>
+}

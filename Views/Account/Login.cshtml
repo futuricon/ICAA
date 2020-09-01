@@ -1,0 +1,29 @@
+﻿@model LoginModel
+@{
+    ViewBag.Title = "Log In";
+    Layout = "_AdminLayout";
+}
+<section style="min-height: 92vh;">
+    <div class="container adminIndex">
+        <div class="text-danger" asp-validation-summary="All"></div>
+        <form asp-action="Login" asp-controller="Account" method="post">
+            <input type="hidden" asp-for="ReturnUrl" />
+            <div class="form-group col-sm-12 col-md-6 col-lg-4 ">
+                <label asp-for="Name"></label>
+                <div>
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                <label asp-for="Password"></label>
+                <div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <input asp-for="Password" class="form-control" />
+            </div>
+            <button class="btn btn-primary mx-3" type="submit">Log In</button>
+        </form>
+    </div>
+
+</section>

@@ -1,0 +1,93 @@
+﻿@inject IViewLocalizer Localizer
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ICAA</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
+    <!-- Lightbox For Gallery -->
+    <link href="~/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Bootstrap 4.3.1-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+
+    <!-- jQuery 1.8 or later, 33 KB -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <!-- Fotorama from CDNJS, 19 KB -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+              asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
+              asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"/>
+    </environment>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <!-- reset.css For Gallery -->
+    @*<link rel="stylesheet" href="~/css/reset.css" />*@
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <h4 class="mb-0">ICAA</h4>
+            </div>
+            <div class="left_side">
+                <ul class='nav-links mb-0'>
+                    <li><a asp-controller="Home" asp-action="Index">@Localizer["Home"]</a></li>
+                    <li><a asp-controller="News" asp-action="Index">@Localizer["News"]</a></li>
+                    <li> @await Html.PartialAsync("_SelectLanguagePartial")</li>
+                </ul>
+            </div>
+            <div class="burger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+        <partial name="_CookieConsentPartial" />
+    </header>
+    <main role="main">
+        @RenderBody()
+    </main>
+    <footer class="footer mt-auto py-2 footer_area">
+        <div class="container-fluid">
+            <a class="autorMe" href="https://t.me/futuricon"><p class="infoMe">© @DateTime.Now.Year.ToString() by Futuricon</p></a>
+        </div>
+    </footer>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <environment include="Development">
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <!-- Lightbox Js For Gallery-->
+        <script src="~/lib/lightbox/js/lightbox-plus-jquery.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
+                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
+                asp-fallback-test="window.jQuery">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"
+                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
+                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal">
+        </script>
+    </environment>
+    <script src="~/js/gLayout.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

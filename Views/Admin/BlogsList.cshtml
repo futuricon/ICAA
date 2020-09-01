@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Blog>
+@{
+    ViewBag.Title = "All Blogs";
+    Layout = "_AdminLayout";
+}
+<section class="table-responsive-md" style="min-height: 92vh; padding-top: 3rem;">
+    <div class="container">
+        <table class="table table-striped table-bordered table-sm">
+            <tr>
+                <th class="text-left">ID</th>
+                <th class="text-left">Image</th>
+                <th class="text-left">TitleRu</th>
+                <th class="text-left">DescriptionRu</th>
+                @*<th class="text-left">Title</th>
+                    <th class="text-left">TitleUz</th>
+                    <th class="text-left">Description</th>
+                    <th class="text-left">DescriptionUz</th>*@
+                <th class="text-left">Created Date</th>
+                <th class="text-center">Actions</th>
+            </tr>
+            @foreach (var item in Model.Reverse())
+            {
+                string subRu;
+                if (item.DescriptionRu.Length > 20) { subRu = item.DescriptionRu.Substring(0, 20); }
+                else { subRu = item.DescriptionRu; }
+                <tr>
+                    <td class="text-left">@item.BlogID</td>
+                    <td class="text-left">@item.ImageUrl</td>
+                    <td class="text-left">@item.TitleRu</td>
+                    <td class="text-left">@subRu</td>
+                    @*<td class="text-left">@item.TitleUz</td>
+                        <td class="text-left">@item.Description</td>
+                        <td class="text-left">@item.Title</td>
+                        <td class="text-left">@item.DescriptionUz</td>*@
+                   <td class="text-left">@item.CreatedDate</td>
+                    <td class="text-center">
+                        <form asp-action="DeleteBlog" method="post">
+                            <a asp-action="EditBlog" class="btn btn-sm btn-warning" asp-route-blogId="@item.BlogID">Edit</a>
+                            <input type="hidden" name="BlogID" value="@item.BlogID" />
+                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </table>
+        <div class="text-center mb-4">
+            <a asp-action="CreateBlog" class="btn btn-primary">Add Blog</a>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,26 @@
+﻿@model BlogsListViewModel
+@{
+    ViewData["Title"] = "Blog";
+    Layout = "~/Views/Shared/_TrioLayout.cshtml";
+}
+
+<section id="blog_list_page" class="gPage_section">
+    <div class="container">
+        <div class="col-sm-12 col-md-10 col-lg-8 mx-auto">
+            <div class="row">
+                @foreach (var p in Model.Blogs)
+                {
+                    @Html.Partial("BlogSummary", p)
+                }
+            </div>
+            <div class="page_link_btn">
+                <div page-model="@Model.PagingInfo" page-action="Index"
+                     page-classes-enabled="true"
+                     page-class="btn btn-sm"
+                     page-class-normal="btn-outline-warning"
+                     page-class-selected="btn-warning"
+                     class="btn-group pull-right m-1"></div>
+            </div>
+        </div>
+    </div>
+</section>

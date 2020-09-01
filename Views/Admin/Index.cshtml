@@ -1,0 +1,20 @@
+﻿@{
+    ViewBag.Title = "Administrator Menu";
+    Layout = "_AdminLayout";
+}
+
+<section style="min-height: 92vh; background-color: grey;">
+    <div class="container adminIndex">
+        <div class="row">
+            <div class="col-12 mt-4">
+                <a asp-controller="Admin" asp-action="BlogsList" class="btn btn-sm btn-warning">Open Blog List</a>
+            </div>
+            <div class="col-12 mt-4">
+                <a asp-controller="Admin" asp-action="StaffsList" class="btn btn-sm btn-warning">Open Staff List</a>
+            </div>
+            <div class="col-12 mt-4">
+                <a asp-controller="Admin" asp-action="GalleryList" class="btn btn-sm btn-warning">Open Gallery List</a>
+            </div>
+        </div>
+    </div>
+</section>

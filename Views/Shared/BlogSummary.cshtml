@@ -1,0 +1,52 @@
+﻿@model Blog
+@inject IViewLocalizer Localizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+
+<div class="col-12 col-md-6 col-lg-6" style="padding-top: 30px">
+    <div class="card card-shadow my-4 card_blog">
+        <img src="@Url.Content(Model.ImageUrl)" class="card-img-top" alt="...">
+        <div class="card-body">
+            @if (@requestCulture.RequestCulture.UICulture.Name == "ru")
+            {
+                //string subRu;
+                //if (Model.DescriptionRu.Length > 20){subRu = Model.DescriptionRu.Substring(0, 20);}
+                //else{subRu = Model.DescriptionRu;}
+                <h5 class="card-title">@Model.TitleRu</h5>
+                <p class="card-subtitle">@Model.CreatedDate.ToString("dd-MM-yyyy")</p>
+                @*<p class="card-text">@Html.Raw(subRu)</p>*@
+            }
+            else if (@requestCulture.RequestCulture.UICulture.Name == "uz")
+            {
+                //string subUz;
+                //if (Model.DescriptionUz.Length > 20) { subUz = Model.DescriptionUz.Substring(0, 20); }
+                //else { subUz = Model.DescriptionRu; }
+                <h5 class="card-title">@Model.TitleUz</h5>
+                <p class="card-subtitle">@Model.CreatedDate.ToString("dd-MM-yyyy")</p>
+                @*<p class="card-text">@Html.Raw(subUz)</p>*@
+            }
+            else
+            {
+                //string sub;
+                //if (Model.Description.Length > 20) { sub = Model.Description.Substring(0, 20); }
+                //else { sub = Model.DescriptionRu; }
+                <h5 class="card-title">@Model.Title</h5>
+                <p class="card-subtitle">@Model.CreatedDate.ToString("dd-MM-yyyy")</p>
+                @*<p class="card-text">@Html.Raw(sub)</p>*@
+            }
+
+            @*<button class="a_s_btn myBTN" type="button">
+                    <a asp-controller="News" asp-action="Blog" asp-route-id="@Model.BlogID">@Localizer["Read More"]</a>
+                </button>*@
+            <div class="BlogList_btn pt-3">
+                <a class="lBtn text-center box-shadow-outset" asp-controller="News" asp-action="News" asp-route-id="@Model.BlogID">@Localizer["Read More"]</a>
+            </div>
+            @*<form asp-action="Blog" asp-controller="Blog" method="post">
+                    <input asp-for="@Model.BlogID" type="hidden" name="xBlogId" value="@Model.BlogID" />
+                    <input asp-for="@Model.Title" type="hidden" name="bName" value="@Model.Title" />
+                    <button class="a_s_btn myBTN" type="submit">@Localizer["Read More"]</button>
+                </form>*@
+        </div>
+    </div>
+</div>

@@ -1,0 +1,83 @@
+﻿@model Blog
+@{
+    ViewBag.Title = "Edit Blog";
+    Layout = "_AdminLayout";
+    var datePicker = DateTime.Now.Date.ToString();
+}
+@*<link href="~/lib/summernote/summernote-bs4.css" rel="stylesheet" />*@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.css" rel="stylesheet">
+
+
+<section style="min-height: 92vh; padding-top: 3rem;">
+    <div class="container">
+        <form asp-action="EditBlog" method="post" enctype="multipart/form-data">
+            <input type="hidden" asp-for="BlogID" />
+            <div class="col-sm-12 col-md-6 col-lg-4">
+                <img src="@Url.Content(@Model.ImageUrl)" style="width: 10rem;">
+            </div>
+            <div class="form-group col-sm-12 col-md-6 col-lg-4 pl-0">
+                <label asp-for="ImageUrl"></label>
+                <input type="file" name="uploadedFile" class="form-control" />
+            </div>
+            <div class="row">
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="Title"></label>
+                    <div><span asp-validation-for="Title" class="text-danger"></span></div>
+                    <input asp-for="Title" class="form-control" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="TitleRu"></label>
+                    <div><span asp-validation-for="TitleRu" class="text-danger"></span></div>
+                    <input asp-for="TitleRu" class="form-control" />
+                </div>
+                <div class="form-group col-sm-12 col-md-6 col-lg-4">
+                    <label asp-for="TitleUz"></label>
+                    <div><span asp-validation-for="TitleUz" class="text-danger"></span></div>
+                    <input asp-for="TitleUz" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-12">
+                    <label asp-for="Description"></label>
+                    <div><span asp-validation-for="Description" class="text-danger"></span></div>
+                    <textarea id="summernote" asp-for="Description" class="form-control"></textarea>
+                </div>
+                <div class="form-group col-12">
+                    <label asp-for="DescriptionRu"></label>
+                    <div><span asp-validation-for="DescriptionRu" class="text-danger"></span></div>
+                    <textarea id="summernoteRu" asp-for="DescriptionRu" class="form-control"></textarea>
+                </div>
+                <div class="form-group col-12">
+                    <label asp-for="DescriptionUz"></label>
+                    <div><span asp-validation-for="DescriptionUz" class="text-danger"></span></div>
+                    <textarea id="summernoteUz" asp-for="DescriptionUz" class="form-control"></textarea>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="CreatedDate"></label>
+                <input asp-for="CreatedDate" type="date" value="@datePicker" class="form-control" />
+            </div>
+            <div class="text-center mb-4">
+                <button class="btn btn-primary" type="submit">Save</button>
+                <a asp-action="BlogsList" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts{
+    @*<script src="~/lib/summernote/summernote-bs4.min.js"></script>
+        <script src="~/lib/summernote/lang/summernote-ru-RU.min.js"></script>*@
+    https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/lang/summernote-ru-RU.min.js
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.12/summernote-bs4.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#summernote').summernote();
+            $('#summernoteRu').summernote({
+                lang: 'ru-RU' // default: 'en-US'
+            });
+            $('#summernoteUz').summernote();
+        });
+    </script>
+}

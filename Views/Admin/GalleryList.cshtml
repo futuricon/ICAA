@@ -1,0 +1,87 @@
+﻿@model IEnumerable<Gallery>
+@{
+    ViewBag.Title = "All Media";
+    Layout = "_AdminLayout";
+}
+
+
+
+<section class="table-responsive-md" style="min-height: 92vh; padding-top: 3rem;">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6 border border-primary mb-4">
+                <div class="m-4 text-center">
+                    <h2>Add New Image</h2>
+                </div>
+                <form asp-action="AddImage" method="post" enctype="multipart/form-data">
+                    <div class="form-group col-12">
+                        <label>Choose Image or video</label>
+                        <input id="myImg" type="file" name="uploadFile" class="form-control" accept=".png, .jpg, .jpeg" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Write some tags</label>
+                        <input id="myTag" type="text" name="info" placeholder="#example#tag" class="form-control" />
+                    </div>
+                    <div class="text-left mb-4" style="padding: 0 15px;">
+                        <button class="btn btn-primary" type="submit">Save Image</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6 border border-primary mb-4">
+                <div class="m-4 text-center">
+                    <h2>Add New Video</h2>
+                </div>
+                <form asp-action="AddVideo" method="post">
+                    <div class="form-group col-12">
+                        <label>Enter Video URL</label>
+                        <input id="myMp4" type="text" name="videoPath" class="form-control" />
+                    </div>
+                    <div class="form-group col-12">
+                        <label>Write some tags</label>
+                        <input id="myVideoTag" type="text" name="info" placeholder="#example#tag" class="form-control" />
+                    </div>
+                    <div class="text-left mb-4" style="padding: 0 15px;">
+                        <button class="btn btn-primary" type="submit">Save Image</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped table-bordered table-sm">
+        <tr>
+            <th class="text-left">ID</th>
+            <th class="text-left">File</th>
+            <th class="text-left">#Tags</th>
+            <th class="text-left">Upload Date</th>
+            <th class="text-center">Action</th>
+        </tr>
+        @foreach (var item in Model.Reverse())
+        {
+            <tr>
+                <td class="text-left">@item.ImageID</td>
+                <td class="text-left">@item.ImagePath</td>
+                <td class="text-left">
+                    <form asp-action="ChangeInfoTag" method="post">
+                        @*<div class="form-group"></div>*@
+                        <input type="hidden" name="imageId" value="@item.ImageID" />
+                        <input type="text" name="TagList" class="form-control" placeholder="@item.Info" />
+                        <button type="submit" class="btn btn-primary btn-sm">Change Tag</button>
+                    </form>
+                </td>
+                <td class="text-left">@item.UploadDate.ToString("MM/dd/yyyy")</td>
+                <td class="text-center">
+                    <a asp-action="DeleteImage" class="btn btn-sm btn-danger" asp-route-id="@item.ImageID">Delete</a>
+                </td>
+            </tr>
+        }
+    </table>
+</section>
+@section ScriptsForT{
+    <script>
+        $("#myImg").prop('required', true);
+        $("#myTag").prop('required', true);
+        $("#myMp4").prop('required', true);
+        $("#myVideoTag").prop('required', true);
+    </script>
+}

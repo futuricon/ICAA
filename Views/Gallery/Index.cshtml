@@ -1,0 +1,183 @@
+﻿@model GalleryListViewModel
+@inject IViewLocalizer Localizer
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    ViewData["Title"] = Localizer["Gallery"];
+    Layout = "~/Views/Shared/_TrioLayout.cshtml";
+}
+<section class="gPage_section">
+    <div class="container">
+        <div class="justify-content-center">
+            @*<div class="row px-3">*@
+            <form id="my_form" class="col-12" asp-controller="Gallery" asp-action="Index" form-inline>
+                <div class="mb-3 row">
+                    @*<input type="text" id="tagName"
+                               name="tagname"
+                               class="form-control col-sm-5 col-md-5 col-lg-4 ml-3"
+                               placeholder="@ViewData["tagName"]"
+                               aria-describedby="tagName"
+                               value="@ViewData["tagName"]" />
+                        <button id="searchBtn" class="btn btn-outline-warning col-sm-3 col-md-2 col-lg-1 ml-3" type="submit">@Localizer["Search"]</button>
+                        <button id="allList" class="btn btn-outline-warning col-sm-4 col-md-3 col-lg-2 ml-3" type="button">@Localizer["All List"]</button>*@
+
+                    <div class="col-sm-12 col-md-5 col-lg-4 pr-0">
+                        <input id="tagName" name="tagname" type="text" class="inputGP" aria-describedby="tagName"/>
+                        @if (ViewData["tagName"] != null)
+                        {
+                            <label class="labelGP">@ViewData["tagName"]</label>
+                        }
+                        else
+                        {
+                            <label class="labelGP">@Localizer["Key Word"]</label>
+                        }
+                        <span class="highlight"></span><span class="bar"></span>
+
+                    </div>
+                    <div class="row col-sm-12 col-md-7 col-lg-5 pr-0 ease_x" style="justify-content: space-between;">
+                        <a id="searchBtn" class="ml-3 aBtn aBtn-1 text-center ease_x">
+                            <svg>
+                                <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                            </svg>
+                            @Localizer["Search"]
+                        </a>
+                        <a id="allList" class="ml-3 aBtn aBtn-1 text-center ease_x">
+                            <svg>
+                                <rect x="0" y="0" fill="none" width="100%" height="100%" />
+                            </svg>
+                            @Localizer["All List"]
+                        </a>
+                    </div>
+                </div>
+            </form>
+            @*</div>*@
+            @*href="javascript:{}" onclick="document.getElementById('my_form').submit();"*@
+        </div>
+        <div class="row mt-5">
+            <div class="col-lg-12">
+                <div class="gallery-wrapper clearfix">
+                    <div class="col-lg-4 grid-sizer"></div>
+                    @foreach (var item in Model.Galleries)
+                    {
+                        if (item.ImagePath.Contains("https://www.youtube.com/embed/"))
+                        {
+                            <iframe class="col-lg-4 grid-item gall_video" width="560" height="315"
+                                    src="@Url.Content(item.ImagePath)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        }
+                        else
+                        {
+                            <a href="@Url.Content(item.ImagePath)" data-toggle="lightbox" data-gallery="gallery" class="zin">
+                                <div class="col-lg-4 grid-item">
+                                    <img class="img-fluid" src="@Url.Content(item.ImagePath)">
+                                </div>
+                            </a>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="page_link_btn pb-3">
+            <section page-model="@Model.PagingInfo" page-action="Index"
+                     page-classes-enabled="true"
+                     page-class="btn btn-sm"
+                     page-class-normal="btn-outline-warning"
+                     page-class-selected="btn-warning"
+                     class="btn-group pull-right m-1 "></section>
+        </div>
+    </div>
+</section>
+
+
+
+@section ScriptsFor
+    {
+    <script src="~/lib/tether/js/tether.min.js"></script>
+    <script src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js'></script>
+    <script src='https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js'></script>
+    <script src='https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js'></script>
+    <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/ekko-lightbox/5.3.0/ekko-lightbox.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js'></script>
+    <script>
+        $(document).ready(function () {
+
+            // masonry
+            var $grid = $('.gallery-wrapper').masonry({
+                itemSelector: '.grid-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true,
+                transitionDuration: 0,
+            });
+
+            $grid.imagesLoaded().progress(function () {
+                $grid.masonry();
+            });
+
+            $("#tagName").autocomplete({
+                source: 'api/SearchG/Search'
+            });
+
+
+            $("#allList").click(function () {
+                $('#tagName').attr('value', null);
+                $('.labelGP').contents().first()[0].textContent = "";
+                $("#searchBtn").click();
+            });
+            $('#searchBtn').click(function () {
+                var temp = $('.labelGP').contents().first()[0].textContent;
+                if (temp != "Key Word" && temp != "Ключевое слово" && temp != "Kalit so'z" && temp != "") {
+                    if ($('#tagName').val() != null && $('#tagName').val() != "") {
+                        $('#my_form').submit();
+                    }
+                    else {
+                        $('#tagName').val(temp);
+                        $('#my_form').submit();
+                    }
+                }
+                else {
+                    $('#tagName').val = "";
+                    $('#my_form').submit();
+                }
+            });
+
+            $('a#pageLink').attr('href', function (i,val) {
+                return val + '&tagname=@ViewData["tagName"]'
+            });
+
+            $(document).on("click", '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox();
+            });
+
+
+            $('.inputGP').blur(function () {
+                var $this = $(this);
+                if ($this.val())
+                    $this.addClass('used');
+                else
+                    $this.removeClass('used');
+            });
+
+
+            //if ($('#tagName').attr("placeholder") == null && $('#tagName').attr("value") == null) {
+            //    $('.labelGP').css("top", "10px")
+            //}
+            //$('#tagName').focusout(function () {
+            //    if ($('#tagName').attr("value") != null) {
+            //        $('.labelGP').css("top", "-20px")
+            //    }
+            //    else {
+            //        $('.labelGP').css("top", "10px")
+            //    }
+            //});
+
+            //$('#tagName').focusin(function () {
+            //    $('.labelGP').css("top", "-20px")
+            //});
+
+        });
+
+    </script>
+}
